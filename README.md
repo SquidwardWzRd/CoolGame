@@ -28,5 +28,6 @@ just a cool game
 ## ToDo
 1. Character Controller
     - ~~Tile-based Movement~~
+    - Collision
     - Interpolation
     - Art/Animation
