@@ -1,6 +1,20 @@
 # CoolGame
 just a cool game
-
+- RPG
+    - Character
+    - Top Down
+    - Tiled Movement
+    - Squares
+    - Hub Area
+        - Casino
+            - Cases GOLD GOLD GOLD!!!
+    - Random Levels / Dungeons
+    - Battle Scenes
+    - Gambling
+        - In the battles and everything
+        - Everything RNG
+            - Affected by player level?
+    - Items and Crafting
 
 ## Work Protocol:
 1. Make a working branch for your feature
