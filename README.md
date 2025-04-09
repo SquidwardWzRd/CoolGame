@@ -29,5 +29,5 @@ just a cool game
 1. Character Controller
     - ~~Tile-based Movement~~
     - Collision
-    - Interpolation
+    - ~~Interpolation~~
     - Art/Animation
