@@ -11,14 +11,17 @@ config_version=5
 [application]
 
 config/name="CoolGame"
+run/main_scene="uid://ddb4jxbfh3fs1"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
 
 [display]
 
-window/stretch/mode="viewport"
+window/size/viewport_width=1280
+window/size/viewport_height=640
 window/stretch/aspect="expand"
-window/stretch/scale=2.0
+window/stretch/scale=4.0
+window/stretch/scale_mode="integer"
 
 [input]
 
