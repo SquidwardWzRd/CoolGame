@@ -31,3 +31,10 @@ just a cool game
     - Collision
     - ~~Interpolation~~
     - Art/Animation
+2. Dungeon Generator
+    - ~~Generate Random Points~~
+    - ~~Create Rectangles 'rooms'~~
+    - ~~Spread Em~~
+    - ~~Select 'Main Rooms'~~
+    - MST
+    - Connect Rooms

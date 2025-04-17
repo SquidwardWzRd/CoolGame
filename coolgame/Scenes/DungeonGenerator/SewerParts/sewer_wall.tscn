@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://b04gu3vfsxgj4"]
+
+[ext_resource type="Texture2D" uid="uid://283jbjjvafat" path="res://Assets/SewerSheet.png" id="1_niopw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t0i8x"]
+atlas = ExtResource("1_niopw")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xiljp"]
+size = Vector2(16, 16)
+
+[node name="SewerWall" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_t0i8x")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_xiljp")

@@ -4,11 +4,12 @@ extends Area2D
 @export var animation_speed = 5
 var moving = false
 
-
+# Map Input
 var inputs = {"right": Vector2.RIGHT,
 		"left": Vector2.LEFT,
 		"up": Vector2.UP,
 		"down": Vector2.DOWN}
+
 
 func _ready() -> void:
 	position = position.snapped(Vector2.ONE * tile_size)

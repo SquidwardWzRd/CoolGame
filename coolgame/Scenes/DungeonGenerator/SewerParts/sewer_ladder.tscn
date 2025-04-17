@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://duhl7mg3r8li5"]
+
+[ext_resource type="Texture2D" uid="uid://283jbjjvafat" path="res://Assets/SewerSheet.png" id="1_kwngr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gctkl"]
+atlas = ExtResource("1_kwngr")
+region = Rect2(16, 0, 16, 16)
+
+[node name="SewerLadder" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_gctkl")
