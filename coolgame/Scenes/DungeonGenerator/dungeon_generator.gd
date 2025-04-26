@@ -7,7 +7,7 @@ extends Node2D
 
 
 @export var radius = 200.0
-@export var amount = 60
+@export var amount = 20
 var tile_size = 16
 
 @onready var rb_script = load("res://Scenes/DungeonGenerator/room.gd")
@@ -18,7 +18,6 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	pass
-
 
 func getRandomPointInCircle(radius:float) -> Vector2:
 	var t = 2 * PI * randf()
@@ -52,21 +51,84 @@ func generateRooms(amount: int) -> void:
 	var max = 30
 	for i in range(amount):
 		var point = getRandomPointInCircle(radius)
-		var w = randi_range(5,max)
-		var h = randi_range(5,max)
+		var w = randi_range(10,max)
+		var h = randi_range(10,max)
 		rooms.append([point, snapped(Vector2(w*tile_size,h*tile_size), Vector2(16,16))])
-	rooms = resolveOverlaps(rooms)
-	var mainrooms = selectMainRooms(rooms)
 	
+	# Fix Overlaps
+	rooms = resolveOverlaps(rooms)
+	# Select the Main Rooms
+	#var mainrooms = selectMainRooms(rooms)
+	
+	# Build MST
+	var mst = MST(rooms)
+	# Draw The Graph
+	var graph_scene = load("res://Scenes/DungeonGenerator/mst_graph.tscn")
+	var graph = graph_scene.instantiate()
+	graph.mst = mst
+	graph.mainrooms = rooms
+	add_child(graph)
+	graph.queue_redraw()
+	
+	# Draw the Rooms
 	for room in rooms:
-		var drawn = false
-		for mainroom in mainrooms:
-			if room == mainroom:
-				DrawRoom(room[0], room[1].x, room[1].y, true)
-				drawn = true
-		if not drawn:
-			DrawRoom(room[0], room[1].x, room[1].y)
+		DrawRoom(room[0], room[1].x, room[1].y)
 
+func MST(mainrooms: Array) -> Array:
+	# Get the Centerpoints
+	var centerpoints = []
+	for room in mainrooms:
+		centerpoints.append(room[0])
+	# Build the Edges
+	var edges = []
+	for i in range(len(centerpoints)):
+		# Offset J by one so they arent the same
+		for j in range(i+1, len(centerpoints)):
+			var a = centerpoints[i]
+			var b = centerpoints[j]
+			var distance = a.distance_to(b)
+			edges.append({"from":i,"to":j,"weight":distance})
+	
+	# Now we have an edge weight for every room connection
+	# We need to sort it short to long
+	edges.sort_custom(func(a,b): return a["weight"] < b["weight"])
+	
+	# Union-Find setup
+	var parent = []
+	var rank = []
+	for i in range(centerpoints.size()):
+		parent.append(i)
+		rank.append(0)
+	
+	# Build MST
+	var mst = []
+	for edge in edges:
+		var x = mst_find(parent, edge["from"])
+		var y = mst_find(parent, edge["to"])
+		if x != y:
+			mst.append(edge)
+			mst_union(parent, rank, x, y)
+	
+	return mst
+
+# Find the root of the group
+func mst_find(parent: Array, i: int) -> int:
+	if parent[i] != i:
+		parent[i] = mst_find(parent, parent[i])  # Path compression
+	return parent[i]
+
+# Union two groups
+func mst_union(parent: Array, rank: Array, x: int, y: int) -> void:
+	var xroot = mst_find(parent, x)
+	var yroot = mst_find(parent, y)
+
+	if rank[xroot] < rank[yroot]:
+		parent[xroot] = yroot
+	elif rank[xroot] > rank[yroot]:
+		parent[yroot] = xroot
+	else:
+		parent[yroot] = xroot
+		rank[xroot] += 1
 
 func resolveOverlaps(rooms: Array, count = 0) -> Array:
 	for i in rooms:
