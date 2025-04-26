@@ -30,7 +30,7 @@ func getRandomPointInCircle(radius:float) -> Vector2:
 	var y = radius*r*sin(t)
 	return snapped(Vector2(x, y), Vector2(16,16))
 
-func rectangles_overlap(pos1, size1, pos2, size2):
+func rectangles_overlap(pos1, size1, pos2, size2) -> bool:
 	var left1 = pos1.x - size1.x / 2
 	var right1 = pos1.x + size1.x / 2
 	var top1 = pos1.y + size1.y / 2
@@ -57,8 +57,6 @@ func generateRooms(amount: int) -> void:
 	
 	# Fix Overlaps
 	rooms = resolveOverlaps(rooms)
-	# Select the Main Rooms
-	#var mainrooms = selectMainRooms(rooms)
 	
 	# Build MST
 	var mst = MST(rooms)
@@ -146,7 +144,7 @@ func resolveOverlaps(rooms: Array, count = 0) -> Array:
 	print("Recursive Count: ", count)
 	return rooms
 
-func pushApart(pos1, size1, pos2, size2):
+func pushApart(pos1, size1, pos2, size2) -> Array:
 	var strength = (tile_size ** 2) / 2
 	
 	# Vector from rect2 to rect1
@@ -169,7 +167,7 @@ func pushApart(pos1, size1, pos2, size2):
 	return [snapped(newPos1, Vector2(16,16)), snapped(newPos2, Vector2(16,16))]
 
 
-func DrawRoom(pos:Vector2, width: int, height: int, main: bool = false):
+func DrawRoom(pos:Vector2, width: int, height: int, main: bool = false) -> void:
 	var sewer = sewer_scene
 	var origin = pos - Vector2(width, height) / 2  # shift from center to top-left
 
@@ -188,25 +186,3 @@ func DrawRoom(pos:Vector2, width: int, height: int, main: bool = false):
 		col.debug_color = Color("bd292e6b")
 	
 	add_child(col)
-
-func selectMainRooms(rooms: Array) -> Array:
-	var main_rooms = []
-	var areas = []
-	
-	# Get a list of all areas
-	for room in rooms:
-		var area = room[1].x * room[1].y
-		areas.append(area)
-	
-	#Calc Average
-	var sum = 0
-	for i in areas:
-		sum += i
-	var average_area = sum / len(areas)
-	
-	# Get the above average area rooms
-	for i in len(areas):
-		if areas[i] >= average_area + 5:
-			main_rooms.append(rooms[i])
-	
-	return main_rooms
