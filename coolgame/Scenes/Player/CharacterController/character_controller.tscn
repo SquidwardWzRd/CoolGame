@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://ddb4jxbfh3fs1"]
+[gd_scene load_steps=5 format=3 uid="uid://ddb4jxbfh3fs1"]
 
 [ext_resource type="Script" uid="uid://cqmvgkj7k4t4a" path="res://Scenes/Player/CharacterController/character_controller.gd" id="1_m3yjw"]
 [ext_resource type="Texture2D" uid="uid://veruib8eiib0" path="res://icon.svg" id="2_eyqte"]
+[ext_resource type="PackedScene" uid="uid://b8lpvumri3cfg" path="res://Scenes/HealthComponent/health_component.tscn" id="3_gdipo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uur32"]
 size = Vector2(16, 16)
@@ -20,3 +21,5 @@ shape = SubResource("RectangleShape2D_uur32")
 [node name="RayCast2D" type="RayCast2D" parent="."]
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_gdipo")]
