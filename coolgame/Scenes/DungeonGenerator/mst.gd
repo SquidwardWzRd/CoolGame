@@ -7,4 +7,4 @@ extends Node2D
 
 func _draw() -> void:
 	for edge in mst:
-		draw_line(mainrooms[edge["from"]][0], mainrooms[edge["to"]][0], Color.GREEN, line_width)
+		draw_line(mainrooms[edge["from"]].position, mainrooms[edge["to"]].position, Color.GREEN, line_width)
