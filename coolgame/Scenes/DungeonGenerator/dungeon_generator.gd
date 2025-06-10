@@ -55,9 +55,51 @@ func generateRooms(amount: int) -> void:
 	add_child(graph)
 	graph.queue_redraw()
 	
+	var hallways: Array[Rect2] = build_hallways(mst, rooms)
+	for hall in hallways:
+		rooms.append(hall)
+	
 	# Draw the Rooms
 	for room in rooms:
 		DrawRoom(room)
+
+func build_hallways(mst: Array[Dictionary], rooms: Array[Rect2]) -> Array[Rect2]:
+	var hallways: Array[Rect2] = []
+	var hall_width: int = 4
+	for edge in mst:
+		var room1: Rect2 = rooms[edge["to"]]
+		var room2: Rect2 = rooms[edge["from"]]
+		var c1: Vector2 = room1.get_center()
+		var c2: Vector2 = room2.get_center()
+		
+		# Check for a vertical hallway
+		if true:
+			pass
+		
+		# Check for horizontal hallway
+		if room_horizontal(room1, room2):
+			var bounds: Array[float] = room_horizontal(room1, room2)
+			var hall_pos: Vector2
+			var hall_size: Vector2
+	return hallways
+
+func room_horizontal(room1: Rect2, room2: Rect2):
+	var pos1: Vector2 = room1.position
+	var pos2: Vector2 = room2.position
+	if pos1.y > pos2.y:
+		var top_bound: float = pos1.y
+		var bottom_bound: float = pos2.y + room2.size.y
+		if top_bound >= bottom_bound:
+			return false
+		return [top_bound, bottom_bound]
+	if pos2.y > pos1.y:
+		var top_bound: float = pos2.y
+		var bottom_bound: float = pos1.y + room1.size.y
+		if top_bound >= bottom_bound:
+			return false
+		return [top_bound, bottom_bound]
+	return false
+
 
 func MST(rooms: Array[Rect2]) -> Array[Dictionary]:
 	# Get the Centerpoints
@@ -154,7 +196,6 @@ func pushApart(a: Rect2, b: Rect2) -> Array:
 func DrawRoom(room: Rect2) -> void:
 	var dungeon_tile = dungeon_tile_scene
 	var tiles: Array[Node2D] = []
-
 	for x in range(room.size.x / 16):
 		for y in range(room.size.y / 16):
 			var tile = dungeon_tile.instantiate()
