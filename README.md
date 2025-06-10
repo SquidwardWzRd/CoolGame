@@ -1,5 +1,7 @@
 # CoolGame
 just a cool game
+
+## Ideas/Notes
 - RPG
     - Character
     - Top Down
@@ -22,3 +24,17 @@ just a cool game
     - Follow ECS design principles
 3. Ensure there are no merge issues
 4. Merge with MAIN!!!!
+
+## ToDo
+1. Character Controller
+    - ~~Tile-based Movement~~
+    - Collision
+    - ~~Interpolation~~
+    - Art/Animation
+2. Dungeon Generator
+    - ~~Generate Random Points~~
+    - ~~Create Rectangles 'rooms'~~
+    - ~~Spread Em~~
+    - ~~Select 'Main Rooms'~~
+    - MST
+    - Connect Rooms

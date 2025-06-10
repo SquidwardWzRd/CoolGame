@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://ddb4jxbfh3fs1"]
+
+[ext_resource type="Script" uid="uid://cqmvgkj7k4t4a" path="res://Scenes/Player/CharacterController/character_controller.gd" id="1_m3yjw"]
+[ext_resource type="Texture2D" uid="uid://veruib8eiib0" path="res://icon.svg" id="2_eyqte"]
+[ext_resource type="PackedScene" uid="uid://b8lpvumri3cfg" path="res://Scenes/HealthComponent/health_component.tscn" id="3_gdipo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uur32"]
+size = Vector2(16, 16)
+
+[node name="CharacterController" type="Area2D"]
+script = ExtResource("1_m3yjw")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(3.57628e-07, -2.38419e-07)
+scale = Vector2(0.125, 0.125)
+texture = ExtResource("2_eyqte")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_uur32")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_gdipo")]

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Stats" load_steps=2 format=3 uid="uid://ed8s7ijclfyf"]
+
+[ext_resource type="Script" uid="uid://hbflbh8pt5ej" path="res://Scenes/StatsComponent/Stats.gd" id="1_8vqtq"]
+
+[resource]
+script = ExtResource("1_8vqtq")
+Strength = 0
+Vitality = 0
+Brains = 0
+Agility = 0
+Rizz = 0
+metadata/_custom_type_script = "uid://hbflbh8pt5ej"
